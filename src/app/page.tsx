@@ -1,21 +1,26 @@
 "use client";
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 
 export default function Home() {
     const [result, setResult] = useState('result');
     let unixTimestamp: number;
 
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        let value = event.target.value;
+        fillUnixTimeVariableWithEnteredValue(Number(value));
+    };
+
     function fillUnixTimeVariableWithEnteredValue(unixTimeEntered: number) {
         unixTimestamp = unixTimeEntered;
     }
 
-    const updateResult = (value:string) => {
+    const updateResult = (value: string) => {
         setResult(value);
     }
 
     function convertUnixTimeAndDisplayResult() {
         let dateObj = new Date(unixTimestamp * 1000);
-        let options = {
+        let options: Intl.DateTimeFormatOptions = {
             weekday: "long",
             year: "numeric",
             month: "long",
@@ -33,7 +38,7 @@ export default function Home() {
     return (
         <>
             <h1>Convert unix time to normal time</h1>
-            <input placeholder="enter unix time" type="number" onChange={e => fillUnixTimeVariableWithEnteredValue(e.target.value)} />
+            <input placeholder="enter unix time" type="number" onChange={handleChange} />
             <button onClick={convertUnixTimeAndDisplayResult}>convert time</button>
             <h2>{result}</h2>
         </>
