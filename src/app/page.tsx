@@ -31,7 +31,6 @@ export default function Home() {
         };
         let formatter = new Intl.DateTimeFormat('de-DE', options);
         let formattedTime = formatter.format(dateObj);
-        console.log(formattedTime);
         updateResult(formattedTime);
     }
 
